@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,8 +81,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '774772424652-joa14n7dpib1ct8vv9890a4ieq56ao9v.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ('GOOGLE_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ('GOOGLE_SECRET')
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

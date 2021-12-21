@@ -6,11 +6,11 @@ from iris_assignment_app.serializers import IrisSerializer
 from rest_framework.permissions import IsAuthenticated
 
 #Create your views here.
-class IrisListView(ListAPIView):
-    """GET - All the Iris list."""
-    permission_classes = [IsAuthenticated]
-    serializer_class = IrisSerializer
-    queryset = Iris.objects.all()
+# class IrisListView(ListAPIView):
+#     """GET - All the Iris list."""
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = IrisSerializer
+#     queryset = Iris.objects.all()
 
 class IrisCreateView(GenericAPIView):
     """POST - Create Iris list"""
