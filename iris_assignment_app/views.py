@@ -3,15 +3,18 @@ from rest_framework import response, status
 from rest_framework.views import APIView
 from iris_assignment_app.models import Iris
 from iris_assignment_app.serializers import IrisSerializer
+from rest_framework.permissions import IsAuthenticated
 
 #Create your views here.
 class IrisListView(ListAPIView):
     """GET - All the Iris list."""
+    permission_classes = [IsAuthenticated]
     serializer_class = IrisSerializer
     queryset = Iris.objects.all()
 
 class IrisCreateView(GenericAPIView):
     """POST - Create Iris list"""
+    permission_classes = [IsAuthenticated]
     serializer_class = IrisSerializer
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
@@ -26,6 +29,7 @@ class IrisCreateView(GenericAPIView):
 
 class IrisDeleteView(APIView):
     """DELETE - Delete Iris data by their id."""
+    permission_classes = [IsAuthenticated]
     def delete(self,request, pk, format=None):
         iris = Iris.objects.filter(pk=pk)
         if len(iris)>0:

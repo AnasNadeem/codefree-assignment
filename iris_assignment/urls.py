@@ -37,4 +37,5 @@ urlpatterns = [
     path('api/', include('iris_assignment_app.urls')),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('auth/', include('rest_framework_social_oauth2.urls'))
 ]
