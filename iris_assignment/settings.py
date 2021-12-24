@@ -15,7 +15,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -25,14 +24,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Social Oauth
-    'oauth2_provider',
-    'social_django',
-    'rest_framework_social_oauth2',
+    'django.contrib.sites',
+    # Allauth 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    # # Social Oauth
+    # 'oauth2_provider',
+    # 'social_django',
+    # 'rest_framework_social_oauth2',
     # Drf yasg - Schema UI 
     'drf_yasg',
     'rest_framework',
     'iris_assignment_app',
+    'iris_app',
 ]
 
 MIDDLEWARE = [
@@ -58,8 +64,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                'django.template.context_processors.request',
+                # 'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -67,22 +74,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iris_assignment.wsgi.application'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework_social_oauth2.authentication.SocialAuthentication',
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+#         'rest_framework_social_oauth2.authentication.SocialAuthentication',
+#     ),
+# }
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+#     'social_core.backends.google.GoogleOAuth2',
+#     'rest_framework_social_oauth2.backends.DjangoOAuth2',
+#     'django.contrib.auth.backends.ModelBackend',
 )
 
 # Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ('GOOGLE_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ('GOOGLE_SECRET')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ('GOOGLE_KEY')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ('GOOGLE_SECRET')
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -130,6 +139,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': '774772424652-joa14n7dpib1ct8vv9890a4ieq56ao9v.apps.googleusercontent.com',
+            'secret': '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',
+            'key': '774772424652-joa14n7dpib1ct8vv9890a4ieq56ao9v.apps.googleusercontent.com'
+        }
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
